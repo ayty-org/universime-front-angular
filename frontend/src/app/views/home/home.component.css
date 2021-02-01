@@ -1,0 +1,25 @@
+.home .title{
+    font-size: 2.8rem;
+    font-weight: 300;
+    line-height: 1.4;
+
+}
+.home .subtitle{
+    font-size: 1.4rem;
+    padding: 20px 0px 0px 450px
+}
+.subtitleP{
+    font-size: 1.2rem;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+button{
+    display: flex;
+    flex-direction: column;
+    left:450px;
+}
+.home .span{
+    padding: 50px;
+}
