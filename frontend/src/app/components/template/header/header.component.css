@@ -3,23 +3,37 @@
     display: flex;
     align-items: center;
     padding: 45px;
+    padding-left: 10px;
 
 }
 
 .header a {
-    
-    display: flex;
+    display: contents;
     align-items: center;
     text-decoration: none;
+
 }
 .header .logo{
-  
     max-height: 90px;
+
 }
 .header .title-group{
-    padding-right: 100px;
+    padding-left: 300px;
+    
 }
 
 .header .title-group i{
-    padding-right: 5px;
+    padding-right: 4px;
+
 }
+
+.header .title-group .mat-raised-button{
+    padding-left: 5px;
+
+}
+.header .login{
+    position:fixed;
+    padding-left: 74rem;
+   
+}
+

@@ -1,9 +1,10 @@
 .footer{
+    position: relative;
+  left: 58rem;
+  bottom: 0;
+  width: 30%;
+  text-align: right;
     
-    position:fixed;
-    bottom: 0px;
-    display: flex;
-    justify-content: flex-end;
 }
 .footer >span{
     font-weight: 300;

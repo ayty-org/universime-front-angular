@@ -2,11 +2,18 @@
     font-size: 2.8rem;
     font-weight: 300;
     line-height: 1.4;
+}
+
+.home .logo{
+    
+    max-height: 15rem;
+    padding-left: 14rem;
+
 
 }
 .home .subtitle{
     font-size: 1.4rem;
-    padding: 20px 0px 0px 450px
+    padding: 20px 0px 0px 290px
 }
 .subtitleP{
     font-size: 1.2rem;
@@ -21,5 +28,5 @@ button{
     left:450px;
 }
 .home .span{
-    padding: 50px;
+    padding:  50px;
 }

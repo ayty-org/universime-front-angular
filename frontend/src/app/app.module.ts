@@ -18,6 +18,10 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CadastroCrudComponent } from './views/cadastro-crud/cadastro-crud.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { LoginComponent } from './components/template/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -28,7 +32,8 @@ import { CadastroCrudComponent } from './views/cadastro-crud/cadastro-crud.compo
     NavComponent,
     HomeComponent,
     CadastroCreateComponent,
-    CadastroCrudComponent
+    CadastroCrudComponent,
+    LoginComponent
 
   ],
   imports: [
@@ -42,7 +47,9 @@ import { CadastroCrudComponent } from './views/cadastro-crud/cadastro-crud.compo
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
