@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/template/login/login.component';
-import { CadastroCrudComponent } from './views/cadastro-crud/cadastro-crud.component';
+import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './views/home/home.component';
+import { HomeComponent } from './home';
+import { AuthGuard } from './_helpers';
 
+const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
+const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
 
 const routes: Routes = [
-  {
-  path: "",
-  component: HomeComponent
-},
-{
-  path:"cadastro",
-  component: CadastroCrudComponent
-},
-{
-  path:"login",
-  component: LoginComponent
-}
+    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'users', loadChildren: usersModule, canActivate: [AuthGuard] },
+    { path: 'account', loadChildren: accountModule },
+
+    // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
