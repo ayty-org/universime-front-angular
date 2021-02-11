@@ -1,9 +1,10 @@
 ﻿export class User {
-    id: string;
-    username: string;
+    id: bigint;
+    login: string;
     password: string;
-    firstName: string;
-    lastName: string;
-    emailP:string;
-    token: string;
+    email: string;
+    fullname: string;
+    imagem:string;
+    admin: boolean;
+    profile: string
 }

@@ -6,38 +6,45 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
+import {loginResponse} from '@app/_models'
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-    private userSubject: BehaviorSubject<User>;
+    private loginSubject: BehaviorSubject<loginResponse>;
+    public loginRes: Observable<loginResponse>;
     public user: Observable<User>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-        this.user = this.userSubject.asObservable();
+        //this.loginSubject = new BehaviorSubject<loginResponse>(localStorage.getItem('credentials'));
+        //this.loginResponse = this.loginSubject.asObservable();
+        
     }
 
-    public get userValue(): User {
-        return this.userSubject.value;
+    public get loginValue(): loginResponse {
+        return this.loginSubject.value;
+    }
+    public get userValue(): User{
+        return new User();
     }
 
     login(username, password) {
-        return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
+        return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { username, password })
+           .pipe(map(response => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
-            }));
+                var credentials: loginResponse = response;
+                localStorage.setItem('credenciais', atob(credentials.getToken));
+                this.loginSubject.next(credentials);
+                return credentials;
+           }));
     }
 
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('user');
-        this.userSubject.next(null);
+        this.loginSubject.next(null);
         this.router.navigate(['/account/login']);
     }
 
@@ -46,34 +53,26 @@ export class AccountService {
     }
 
     getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users`);
+        return this.http.get<User[]>(`${environment.apiUrl}/hatcher/listUsers`);
     }
 
-    getById(id: string) {
+    getById(id: bigint) {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
+        return this.http.put<User>(`${environment.apiUrl}hatcher/update/${id}`, params)
+            .pipe(map(x => { 
+                 var updated :User = x;
+                 return updated;
             }));
     }
 
-    delete(id: string) {
+    delete(id: bigint) {
         return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.id) {
+                if (id == JSON.parse(localStorage.getItem('credentials')).Id) {
                     this.logout();
                 }
                 return x;
