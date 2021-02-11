@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { User } from '@app/_models';
+import { User, userDTO } from '@app/_models';
 import {loginResponse} from '@app/_models'
 
 @Injectable({ providedIn: 'root' })
@@ -34,11 +34,10 @@ export class AccountService {
         return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { login, password })
            .pipe(map(response => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                const loginResponse: loginResponse = response;
-                console.log(response.token)
+                console.log(JSON.parse(window.atob(response.token.split(".")[1])))
                 localStorage.setItem('credenciais',JSON.stringify(JSON.parse(window.atob(response.token.split(".")[1]))));
-                this.loginSubject.next(loginResponse);
-                return loginResponse;
+                this.loginSubject.next(response);
+                return response;
            }));
     }
 
@@ -50,11 +49,11 @@ export class AccountService {
     }
 
     register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
+        return this.http.post<User>(`${environment.apiUrl}/users/register`, user);
     }
 
     getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/hatcher/listUsers`);
+        return this.http.get<userDTO[]>(`${environment.apiUrl}/hatcher/listUsers`);
     }
 
     getById(id: bigint) {

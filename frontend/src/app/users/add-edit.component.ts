@@ -32,19 +32,21 @@ export class AddEditComponent implements OnInit {
         }
 
         this.form = this.formBuilder.group({
-            login: ['', Validators.required],
-            password: ['', passwordValidators],
             fullname: ['', Validators.required],
-            email: ['', Validators.required]
+            password: ['', passwordValidators],
+            admin: ['', Validators.required],
+            email: ['',Validators.required],
+            profile: ['', Validators.required]
         });
 
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.login.setValue(x.login);
-                    this.f.login.setValue(x.password)
-                    this.f.fullname.setValue(x.fullname);
+                    this.f.login.setValue(x.fullname);
+                    this.f.password.setValue(x.password);
+                    this.f.admin.setValue(x.admin);
+                    this.f.profile.setValue(x.profile);
                     this.f.email.setValue(x.email);
                 });
         }
@@ -77,11 +79,11 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
+                    this.alertService.success(`User ${data.login} added successfully`, { keepAfterRouteChange: true });
                     this.router.navigate(['.', { relativeTo: this.route }]);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.message);
                     this.loading = false;
                 });
     }

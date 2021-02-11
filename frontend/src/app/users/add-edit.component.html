@@ -3,28 +3,13 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
         <div class="form-group col">
-            <label for="firstName">Primeiro Nome</label>
-            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                <div *ngIf="f.firstName.errors.required">Seu primeiro nome é obrigatório</div>
-            </div>
-        </div>
-        <div class="form-group col">
-            <label for="lastName">Sobrenome</label>
-            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                <div *ngIf="f.lastName.errors.required">Seu sobrenome é obrigatório</div>
+            <label for="fullname">Primeiro Nome</label>
+            <input type="text" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
+            <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                <div *ngIf="f.fullname.errors.required">Seu primeiro nome é obrigatório</div>
             </div>
         </div>
     </div>
-    <div class="form-row">
-        <div class="form-group col">
-            <label for="username">Usuario</label>
-            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                <div *ngIf="f.username.errors.required">Usuário obrigatório</div>
-            </div>
-        </div>
         <div class="form-group col">
             <label for="password">
                 Senha
@@ -37,7 +22,24 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col">
+        <label for="admin">É administrador?</label>
+        <input type="checkbox" name="admin" formControlName="admin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.admin.errors }" />
+        <div *ngIf="submitted && f.admin.errors" class="invalid-feedback">
+            <div *ngIf="f.admin.errors.required">Campo é obrigatório</div>
+        </div>
+    </div>
+    <div class="form-group col">
+        <label for="profile">Perfil</label>
+        <select type="text" formControlName="profile" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
+            <option [ngValue]="PROFESSOR">Professor</option>
+            <option [ngValue]="ALUNO">Aluno</option>
+        </select>
+        <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
+            <div *ngIf="f.profile.errors.required">Perfil é obrigatório</div>
+        </div>
+    </div>
+    <div class="form-group col">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Save
