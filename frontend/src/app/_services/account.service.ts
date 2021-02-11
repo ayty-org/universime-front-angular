@@ -30,12 +30,13 @@ export class AccountService {
         return new User();
     }
 
-    login(username, password) {
-        return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { username, password })
+    login(login, password) {
+        return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { login, password })
            .pipe(map(response => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 const loginResponse: loginResponse = response;
-                localStorage.setItem('credenciais', atob(loginResponse.getToken));
+                console.log(response.token)
+                localStorage.setItem('credenciais',JSON.stringify(JSON.parse(window.atob(response.token.split(".")[1]))));
                 this.loginSubject.next(loginResponse);
                 return loginResponse;
            }));
