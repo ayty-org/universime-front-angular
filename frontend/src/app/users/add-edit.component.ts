@@ -8,7 +8,7 @@ import { AccountService, AlertService } from '@app/_services';
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
     form: FormGroup;
-    id: string;
+    id: bigint;
     isAddMode: boolean;
     loading = false;
     submitted = false;
@@ -32,19 +32,20 @@ export class AddEditComponent implements OnInit {
         }
 
         this.form = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', passwordValidators]
+            login: ['', Validators.required],
+            password: ['', passwordValidators],
+            fullname: ['', Validators.required],
+            email: ['', Validators.required]
         });
 
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.firstName.setValue(x.firstName);
-                    this.f.lastName.setValue(x.lastName);
-                    this.f.username.setValue(x.username);
+                    this.f.login.setValue(x.login);
+                    this.f.login.setValue(x.password)
+                    this.f.fullname.setValue(x.fullname);
+                    this.f.email.setValue(x.email);
                 });
         }
     }

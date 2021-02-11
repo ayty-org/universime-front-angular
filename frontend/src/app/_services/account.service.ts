@@ -18,8 +18,8 @@ export class AccountService {
         private router: Router,
         private http: HttpClient
     ) {
-        //this.loginSubject = new BehaviorSubject<loginResponse>(localStorage.getItem('credentials'));
-        //this.loginResponse = this.loginSubject.asObservable();
+        this.loginSubject = new BehaviorSubject<loginResponse>(JSON.parse(localStorage.getItem('credentials')));
+        this.loginRes = this.loginSubject.asObservable();
         
     }
 
@@ -34,16 +34,16 @@ export class AccountService {
         return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { username, password })
            .pipe(map(response => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                var credentials: loginResponse = response;
-                localStorage.setItem('credenciais', atob(credentials.getToken));
-                this.loginSubject.next(credentials);
-                return credentials;
+                const loginResponse: loginResponse = response;
+                localStorage.setItem('credenciais', atob(loginResponse.getToken));
+                this.loginSubject.next(loginResponse);
+                return loginResponse;
            }));
     }
 
     logout() {
         // remove user from local storage and set current user to null
-        localStorage.removeItem('user');
+        localStorage.removeItem('credenciais');
         this.loginSubject.next(null);
         this.router.navigate(['/account/login']);
     }
