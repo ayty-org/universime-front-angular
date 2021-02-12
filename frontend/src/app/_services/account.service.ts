@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,11 +13,14 @@ export class AccountService {
     private loginSubject: BehaviorSubject<loginResponse>;
     public loginRes: Observable<loginResponse>;
     public user: Observable<User>;
+    private header:HttpHeaders;
 
     constructor(
         private router: Router,
-        private http: HttpClient
-    ) {
+        private http: HttpClient,
+    ) 
+    
+    {
         this.loginSubject = new BehaviorSubject<loginResponse>(JSON.parse(localStorage.getItem('credentials')));
         this.loginRes = this.loginSubject.asObservable();
         
@@ -31,9 +34,11 @@ export class AccountService {
     }
 
     login(login, password) {
+        console.log(login)
         return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { login, password })
            .pipe(map(response => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                this.header = new HttpHeaders({Authorization: `Bearer ${response.token}`} )   
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
                 console.log(JSON.parse(window.atob(response.token.split(".")[1])))
                 localStorage.setItem('credenciais',JSON.stringify(JSON.parse(window.atob(response.token.split(".")[1]))));
                 this.loginSubject.next(response);
@@ -49,19 +54,20 @@ export class AccountService {
     }
 
     register(user: User) {
-        return this.http.post<User>(`${environment.apiUrl}/users/register`, user);
+        return this.http.post<User>(`${environment.apiUrl}/users/register`, user,{headers:this.header});
     }
 
     getAll() {
-        return this.http.get<userDTO[]>(`${environment.apiUrl}/hatcher/listUsers`);
+        return this.http.get<userDTO[]>(`${environment.apiUrl}/hatcher/listUsers`,{headers:this.header})
+        
     }
 
     getById(id: bigint) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+        return this.http.get<User>(`${environment.apiUrl}/users/${id}`,{headers:this.header});
     }
 
     update(id, params) {
-        return this.http.put<User>(`${environment.apiUrl}hatcher/update/${id}`, params)
+        return this.http.put<User>(`${environment.apiUrl}hatcher/update/${id}`, params,{headers:this.header})
             .pipe(map(x => { 
                  var updated :User = x;
                  return updated;
@@ -69,7 +75,7 @@ export class AccountService {
     }
 
     delete(id: bigint) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`)
+        return this.http.delete(`${environment.apiUrl}/users/${id}`,{headers:this.header})
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
                 if (id == JSON.parse(localStorage.getItem('credentials')).Id) {
