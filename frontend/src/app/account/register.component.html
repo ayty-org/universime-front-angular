@@ -2,6 +2,7 @@
     <h4 class="card-header">Register</h4>
     <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <!--LOGIN-->
             <div class="form-group">
                 <label for="login">Login</label>
                 <input type="text" formControlName="login" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.login.errors }" />
@@ -9,6 +10,7 @@
                     <div *ngIf="f.login.errors.required">Seu primeiro nome é obrigatório</div>
                 </div>
             </div>
+            <!--PASSWORD-->
             <div class="form-group">
                 <label for="password">senha</label>
                 <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
@@ -17,6 +19,7 @@
                     <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
                 </div>
             </div>
+            <!--FULLNAME-->
             <div class="form-group">
                 <label for="fullname">Nome Completo</label>
                 <input type="text" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
@@ -24,7 +27,7 @@
                     <div *ngIf="f.fullname.errors.required">Seu primeiro nome é obrigatório</div>
                 </div>
             </div>
-             <!-- EMAIL-->
+             <!--EMAIL-->
              <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
@@ -32,13 +35,7 @@
                     <div *ngIf="f.email.errors.required">E-mail obrigatório</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="admin">É administrador?</label>
-                <input type="checkbox" formControlName="admin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.admin.errors }" />
-                <div *ngIf="submitted && f.admin.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required">Campo é obrigatório</div>
-                </div>
-            </div>
+            <!-- PROFILE -->
             <div class="form-group">
                 <label for="profile">Perfil</label>
                 <select type="text" formControlName="profile" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
@@ -49,6 +46,7 @@
                     <div *ngIf="f.profile.errors.required">Perfil é obrigatório</div>
                 </div>
             </div>
+            <!--SUBMIT-->
             <div class="form-group">
                 <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

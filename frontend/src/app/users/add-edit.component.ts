@@ -34,7 +34,6 @@ export class AddEditComponent implements OnInit {
         this.form = this.formBuilder.group({
             fullname: ['', Validators.required],
             password: ['', passwordValidators],
-            admin: ['', Validators.required],
             email: ['',Validators.required],
             profile: ['', Validators.required]
         });
@@ -45,7 +44,6 @@ export class AddEditComponent implements OnInit {
                 .subscribe(x => {
                     this.f.login.setValue(x.fullname);
                     this.f.password.setValue(x.password);
-                    this.f.admin.setValue(x.admin);
                     this.f.profile.setValue(x.profile);
                     this.f.email.setValue(x.email);
                 });
@@ -79,7 +77,7 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success(`User ${data.login} added successfully`, { keepAfterRouteChange: true });
+                    this.alertService.success(`User ${data.fullname} added successfully`, { keepAfterRouteChange: true });
                     this.router.navigate(['.', { relativeTo: this.route }]);
                 },
                 error => {
@@ -93,11 +91,11 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
+                    this.alertService.success(`Usuário ${data.fullname} atualizado com successo`, { keepAfterRouteChange: true });
                     this.router.navigate(['..', { relativeTo: this.route }]);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.message);
                     this.loading = false;
                 });
     }

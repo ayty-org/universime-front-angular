@@ -13,6 +13,7 @@ export class AccountService {
     private loginSubject: BehaviorSubject<loginResponse>;
     public loginRes: Observable<loginResponse>;
     public user: Observable<User>;
+    public userSubject: BehaviorSubject<User>;
     private header:HttpHeaders;
 
     constructor(
@@ -21,25 +22,22 @@ export class AccountService {
     ) 
     
     {
-        this.loginSubject = new BehaviorSubject<loginResponse>(JSON.parse(localStorage.getItem('credentials')));
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('credenciais')));
         this.loginRes = this.loginSubject.asObservable();
+        this.user = this.userSubject.asObservable();
         
     }
 
-    public get loginValue(): loginResponse {
-        return this.loginSubject.value;
-    }
+   
     public get userValue(): User{
-        return new User();
+        return this.userSubject.value;
     }
 
     login(login, password) {
-        console.log(login)
         return this.http.post<loginResponse>(`${environment.apiUrl}/hatcher/auth`, { login, password })
            .pipe(map(response => {
                 this.header = new HttpHeaders({Authorization: `Bearer ${response.token}`} )   
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-                console.log(JSON.parse(window.atob(response.token.split(".")[1])))
+            // store user details and jwt token in local storage to keep user logged in between page refreshe
                 localStorage.setItem('credenciais',JSON.stringify(JSON.parse(window.atob(response.token.split(".")[1]))));
                 this.loginSubject.next(response);
                 return response;
@@ -50,6 +48,7 @@ export class AccountService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('credenciais');
         this.loginSubject.next(null);
+        this.userSubject.next(null);
         this.router.navigate(['/account/login']);
     }
 

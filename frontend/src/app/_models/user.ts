@@ -5,6 +5,5 @@
     email: string;
     fullname: string;
     imagem:string;
-    admin: boolean;
     profile: string
 }

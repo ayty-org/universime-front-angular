@@ -1,7 +1,30 @@
 ﻿<h1 *ngIf="isAddMode">Adicionar usuário</h1>
 <h1 *ngIf="!isAddMode">Editar usuário</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-row">
+    <!--LOGIN-->
+    <div class="form-row col">
+        <div class="form-group col">
+            <label for="login">Primeiro Nome</label>
+            <input type="text" formControlName="login" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.login.errors }" />
+            <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
+                <div *ngIf="f.login.errors.required">Seu primeiro nome é obrigatório</div>
+            </div>
+        </div>
+    </div>
+     <!--PASSWORD-->
+     <div class="form-group col">
+        <label for="password">
+            Senha
+            <em *ngIf="!isAddMode">(Deixe em branco para manter a mesma senha)</em>
+        </label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Senha obrigatória</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+    </div>
+    <!--FULLNAME-->
+    <div class="form-row col">
         <div class="form-group col">
             <label for="fullname">Primeiro Nome</label>
             <input type="text" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
@@ -10,25 +33,17 @@
             </div>
         </div>
     </div>
+    <!--EMAIL-->
+    <div class="form-row col">
         <div class="form-group col">
-            <label for="password">
-                Senha
-                <em *ngIf="!isAddMode">(Deixe em branco para manter a mesma senha)</em>
-            </label>
-            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Senha obrigatória</div>
-                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            <label for="email">Primeiro Nome</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Seu primeiro nome é obrigatório</div>
             </div>
         </div>
-
-    <div class="form-group col">
-        <label for="admin">É administrador?</label>
-        <input type="checkbox" name="admin" formControlName="admin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.admin.errors }" />
-        <div *ngIf="submitted && f.admin.errors" class="invalid-feedback">
-            <div *ngIf="f.admin.errors.required">Campo é obrigatório</div>
-        </div>
     </div>
+    <!--PROFILE-->
     <div class="form-group col">
         <label for="profile">Perfil</label>
         <select type="text" formControlName="profile" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.profile.errors }">
@@ -39,6 +54,7 @@
             <div *ngIf="f.profile.errors.required">Perfil é obrigatório</div>
         </div>
     </div>
+    <!--SUBMIT-->
     <div class="form-group col">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
