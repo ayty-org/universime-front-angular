@@ -11,8 +11,8 @@ export class AuthGuard implements CanActivate {
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const login = this.accountService.loginValue;
-        if (login) {
+        const user = this.accountService.userValue;
+        if (user) {
              //authorised so return true
             return true;
         }

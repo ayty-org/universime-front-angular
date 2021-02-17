@@ -5,8 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { User, userDTO } from '@app/_models';
-import {loginResponse} from '@app/_models'
+import { User, userDTO, loginResponse } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -23,7 +22,7 @@ export class AccountService {
     
     {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('credenciais')));
-        this.loginRes = this.loginSubject.asObservable();
+        //this.loginRes = this.loginSubject.asObservable();
         this.user = this.userSubject.asObservable();
         
     }
@@ -31,6 +30,9 @@ export class AccountService {
    
     public get userValue(): User{
         return this.userSubject.value;
+    }
+    public get loginValue(): loginResponse{
+        return this.loginSubject.value;
     }
 
     login(login, password) {
