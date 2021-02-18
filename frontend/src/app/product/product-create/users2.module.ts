@@ -2,22 +2,31 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { UsersRoutingModule } from './users-routing.module';
+import { UsersRoutingModule } from './users-routing2.module';
+
 import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
-import { AddEditComponent } from './add-edit.component';
+import { TesteComponent } from './teste.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTreeModule} from '@angular/material/tree';
+
+
+
 
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        UsersRoutingModule
+        UsersRoutingModule,
+        MatSnackBarModule,
+        MatTreeModule
+
     ],
     declarations: [
         LayoutComponent,
         ListComponent,
-        AddEditComponent
+        TesteComponent
     ]
 })
 export class UsersModule { }

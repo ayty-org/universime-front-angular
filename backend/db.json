@@ -1,23 +1,21 @@
 {
     "products":[{
         "id": 1,
-        "name": "João Batista",
-        "email":"Email_teste@hotmail.com",
-        "login":"JoaoBatista",
-        "senha":""
-        
+        "name": "Atividade teste",
+        "descricao":"A melhor atividade do mundo "
+    
     },
     {
         "id": 2,
-        "name": "João Marcelo",
-        "email":"Email_teste@hotmail.com",
-        "login":"JoaoMarcelo"
+        "name": "Atividade de avião",
+        "descricao":"Uma viagem incrivel"
+       
     },
     {
         "id": 3,
-        "name": "João Arruda",
-        "email":"Email_teste@hotmail.com",
-        "login":"JoaoArruda"
+        "name": "Tcc",
+        "email":"Meu Tcc, oh yearh"
+       
     }
     
     ]

@@ -1,11 +1,16 @@
-﻿<h1>Usuários</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Adicionar</a>
+<h1>Cadastrar atividade</h1>
+
+<a routerLink="create" class="btn-floating btn-large waves-effect waves-light blue">
+  <i class="material-icons">add</i></a>
+
+
+
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">Nome</th>
-            <th style="width: 30%">Sobrenome</th>
-            <th style="width: 30%">Usuário</th>
+            <th style="width: 30%">Nome da atividade</th>
+            <th style="width: 30%">Descrição da atividade</th>
+            <th style="width: 30%">informação</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
@@ -27,5 +32,15 @@
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
         </tr>
+        <ul class="pagination">
+          <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+          <li class="active"><a href="#!">1</a></li>
+          <li class="waves-effect"><a href="#!">2</a></li>
+          <li class="waves-effect"><a href="#!">3</a></li>
+          <li class="waves-effect"><a href="#!">4</a></li>
+          <li class="waves-effect"><a href="#!">5</a></li>
+          <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
     </tbody>
 </table>
+
