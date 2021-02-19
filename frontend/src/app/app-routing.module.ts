@@ -15,7 +15,7 @@ const routes: Routes = [
     { path: 'cadastrar', loadChildren: cadastroModule, canActivate: [AuthGuard] },
 
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '' }]
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
