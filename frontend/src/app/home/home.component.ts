@@ -9,7 +9,6 @@ export class HomeComponent {
     user: tokenUser;
 
     constructor(private accountService: AccountService) {
-        console.log(this.accountService.userValue)
         this.user = this.accountService.userValue;
     }
 }
