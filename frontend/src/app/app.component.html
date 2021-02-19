@@ -1,29 +1,27 @@
 ﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+  <a class="navbar-brand" href="#">HATCHER</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Usuarios cadastrados</a>
-        <a class="nav-item nav-link" (click)="logout()">Sair</a>
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="#">Usuários</a>
     </div>
+  </div>
 </nav>
-
 <!-- main app container -->
-<div class="app-container" [ngClass]="{ 'bg-light': user }">
+<div class="app-container centerContent" [ngClass]="{ 'bg-light': user }">
     <alert></alert>
     <router-outlet></router-outlet>
 </div>
-<div style="position: absolute;
 
-bottom: 0;
-width: 100%;
-  ">
-  <footer class="bg-light text-center text-lg-start">
-    <!-- Copyright -->
-    <div class="text-light p-3" style="background-color: #1266F1">
-      © 2021 Copyright:
-      <a class="text-warning" href="http://ayty.org/index">ayty.org/index</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-</div>
-
+<footer class="bg-dark text-center text-lg-start footerFix">
+  <!-- Copyright -->
+  <div class="text-light p-2">
+    © 2021 Copyright:
+    <a class="text-warning" href="http://ayty.org/index">ayty.org/index</a>
+  </div>
+  <!-- Copyright -->
+</footer>
