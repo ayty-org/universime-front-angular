@@ -1,20 +1,29 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+
+
+
+
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
+
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
-import { QuemSomosComponent } from './_components/quem-somos/quem-somos.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuemSomosComponent } from './_components/quem-somos/quem-somos.component';;
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatToolbarModule} from '@angular/material/toolbar';
+
+
 
 
 @NgModule({
@@ -24,19 +33,16 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         HttpClientModule,
         AppRoutingModule,
         MatSnackBarModule,
-        BrowserAnimationsModule,
         MatFormFieldModule,
-        MatToolbarModule,
-
-      ],
+        MatToolbarModule
+,
+        BrowserAnimationsModule    ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
-        QuemSomosComponent,
-
-
-      ],
+        QuemSomosComponent
+          ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

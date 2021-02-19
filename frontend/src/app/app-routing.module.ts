@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home';
 
+import { HomeComponent } from './home';
 import { AuthGuard } from './_helpers';
 
 const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
@@ -16,9 +16,6 @@ const routes: Routes = [
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
-
-
-];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
