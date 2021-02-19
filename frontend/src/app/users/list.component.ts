@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
     ngOnInit() {
         this.accountService.getAll()
             .pipe(first())
-            .subscribe(users => this.users = users);
+            .subscribe(users => this.users = users.content);
     }
 
     deleteUser(id: bigint) {
