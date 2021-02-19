@@ -1,13 +1,15 @@
 ﻿import { Component } from '@angular/core';
 
-import { User } from '@app/_models';
+import { tokenUser } from '@app/_models';
 import { AccountService } from '@app/_services';
+
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {
-    user: User;
+    user: tokenUser;
 
     constructor(private accountService: AccountService) {
+        console.log(this.accountService.userValue)
         this.user = this.accountService.userValue;
     }
 }

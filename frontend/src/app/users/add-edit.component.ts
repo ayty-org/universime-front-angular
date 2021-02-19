@@ -35,17 +35,17 @@ export class AddEditComponent implements OnInit {
             fullname: ['', Validators.required],
             password: ['', passwordValidators],
             email: ['',Validators.required],
-            profile: ['', Validators.required]
+            login: ['', Validators.required],
+            profile: ['', Validators.required],
         });
 
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.login.setValue(x.fullname);
-                    this.f.password.setValue(x.password);
-                    this.f.profile.setValue(x.profile);
+                    this.f.login.setValue(x.login);
                     this.f.email.setValue(x.email);
+                    this.f.fullname.setValue(x.fullname);
                 });
         }
     }
