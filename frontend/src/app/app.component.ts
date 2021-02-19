@@ -3,7 +3,8 @@
 import { AccountService } from './_services';
 import { loginResponse, tokenUser } from './_models';
 
-@Component({ selector: 'app', templateUrl: 'app.component.html' })
+@Component({ selector: 'app',
+  templateUrl: 'app.component.html' })
 export class AppComponent {
     user: tokenUser;
 
