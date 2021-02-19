@@ -4,7 +4,7 @@
     <!--LOGIN-->
     <div class="form-row col">
         <div class="form-group col">
-            <label for="login">Primeiro Nome</label>
+            <label for="login">Login</label>
             <input type="text" formControlName="login" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.login.errors }" />
             <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
                 <div *ngIf="f.login.errors.required">Seu primeiro nome é obrigatório</div>
@@ -26,7 +26,7 @@
     <!--FULLNAME-->
     <div class="form-row col">
         <div class="form-group col">
-            <label for="fullname">Primeiro Nome</label>
+            <label for="fullname">Nome Completo</label>
             <input type="text" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
             <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
                 <div *ngIf="f.fullname.errors.required">Seu primeiro nome é obrigatório</div>
@@ -36,7 +36,7 @@
     <!--EMAIL-->
     <div class="form-row col">
         <div class="form-group col">
-            <label for="email">Primeiro Nome</label>
+            <label for="email">email</label>
             <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                 <div *ngIf="f.email.errors.required">Seu primeiro nome é obrigatório</div>

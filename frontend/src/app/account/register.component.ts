@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
+import { User, userDTO } from '@app/_models';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -44,14 +45,20 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.accountService.register(this.form.value)
+        const user  = new User(this.f.login.value,this.f.password.value,this.f.email.value,this.f.fullname.value,this.f.profile.value);
+        console.log(user)
+        this.accountService.register(user)
             .pipe(first())
             .subscribe(
+                
                 user => {
+                    console.log(user);
                     this.alertService.success(`${user.login} Registrado com sucesso`, { keepAfterRouteChange: true });
                     this.router.navigate(['../login'], { relativeTo: this.route });
+
                 },
                 error => {
+                    console.log(error);
                     this.alertService.error(error);
                     this.loading = false;
                 });
