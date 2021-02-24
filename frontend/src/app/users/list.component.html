@@ -1,19 +1,19 @@
-﻿<h1>Users</h1>
-<!--<a routerLink="add" class="btn btn-sm btn-success mb-2">Adicionar</a>-->
+﻿<h1>Usuários</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Adicionar</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">Login</th>
-            <th style="width: 30%">Nome Completo</th>
-            <th style="width: 30%">Email</th>
+            <th style="width: 30%">Nome</th>
+            <th style="width: 30%">Sobrenome</th>
+            <th style="width: 30%">Usuário</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
-            <td>{{user.login}}</td>
-            <td>{{user.fullname}}</td>
-            <td>{{user.email}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.username}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Editar</a>
                 <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">

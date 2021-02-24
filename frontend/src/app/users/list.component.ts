@@ -12,10 +12,10 @@ export class ListComponent implements OnInit {
     ngOnInit() {
         this.accountService.getAll()
             .pipe(first())
-            .subscribe(users => this.users = users.content);
+            .subscribe(users => this.users = users);
     }
 
-    deleteUser(id: bigint) {
+    deleteUser(id: string) {
         const user = this.users.find(x => x.id === id);
         user.isDeleting = true;
         this.accountService.delete(id)

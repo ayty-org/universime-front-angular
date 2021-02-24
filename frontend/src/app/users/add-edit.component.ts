@@ -8,7 +8,7 @@ import { AccountService, AlertService } from '@app/_services';
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
     form: FormGroup;
-    id: bigint;
+    id: string;
     isAddMode: boolean;
     loading = false;
     submitted = false;
@@ -32,20 +32,19 @@ export class AddEditComponent implements OnInit {
         }
 
         this.form = this.formBuilder.group({
-            fullname: ['', Validators.required],
-            password: ['', passwordValidators],
-            email: ['',Validators.required],
-            login: ['', Validators.required],
-            profile: ['', Validators.required],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            username: ['', Validators.required],
+            password: ['', passwordValidators]
         });
 
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.login.setValue(x.login);
-                    this.f.email.setValue(x.email);
-                    this.f.fullname.setValue(x.fullname);
+                    this.f.firstName.setValue(x.firstName);
+                    this.f.lastName.setValue(x.lastName);
+                    this.f.username.setValue(x.username);
                 });
         }
     }
@@ -77,11 +76,11 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success(`User ${data.fullname} added successfully`, { keepAfterRouteChange: true });
+                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
                     this.router.navigate(['.', { relativeTo: this.route }]);
                 },
                 error => {
-                    this.alertService.error(error.message);
+                    this.alertService.error(error);
                     this.loading = false;
                 });
     }
@@ -91,11 +90,11 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success(`Usuário ${data.fullname} atualizado com successo`, { keepAfterRouteChange: true });
+                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
                     this.router.navigate(['..', { relativeTo: this.route }]);
                 },
                 error => {
-                    this.alertService.error(error.message);
+                    this.alertService.error(error);
                     this.loading = false;
                 });
     }

@@ -1,89 +1,79 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { User, userDTO, loginResponse, tokenUser, Pageable } from '@app/_models';
+import { User } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-    private loginSubject: BehaviorSubject<loginResponse>;
-    public loginRes: Observable<loginResponse>;
-    public user: Observable<tokenUser>;
-    public userSubject: BehaviorSubject<tokenUser>;
-    private header:HttpHeaders;
+    private userSubject: BehaviorSubject<User>;
+    public user: Observable<User>;
 
     constructor(
         private router: Router,
-        private http: HttpClient,
-    ) 
-    
-    {
-        this.userSubject = new BehaviorSubject<tokenUser>(JSON.parse(localStorage.getItem('credenciais')));
-        //this.loginRes = this.loginSubject.asObservable();
+        private http: HttpClient
+    ) {
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
-        this.loginSubject = new BehaviorSubject<loginResponse>(JSON.parse(localStorage.getItem('credenciais')));
-
-        
     }
 
-   
-    public get userValue(): tokenUser{
+    public get userValue(): User {
         return this.userSubject.value;
     }
-    public get loginValue(): loginResponse{
-        return this.loginSubject.value;
-    }
 
-    login(login, password) {
-        return this.http.post<loginResponse>(`${environment.apiUrl}/auth`, { login, password })
-           .pipe(map(response => {
-                this.header = new HttpHeaders({Authorization: `Bearer ${response.token}`} )   
-            // store user details and jwt token in local storage to keep user logged in between page refreshe
-                this.userSubject.next(JSON.parse(window.atob(response.token.split(".")[1])));
-                localStorage.setItem('credenciais',JSON.stringify(JSON.parse(window.atob(response.token.split(".")[1]))));
-                this.loginSubject.next(response);
-                return response;
-           }));
+    login(username, password) {
+        return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
+            .pipe(map(user => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user', JSON.stringify(user));
+                this.userSubject.next(user);
+                return user;
+            }));
     }
 
     logout() {
         // remove user from local storage and set current user to null
-        localStorage.removeItem('credenciais');
-
-        this.loginSubject.next(null);
+        localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/account/login']);
     }
 
     register(user: User) {
-        return this.http.post<User>(`${environment.apiUrl}/register`, user);
+        return this.http.post(`${environment.apiUrl}/users/register`, user);
     }
 
     getAll() {
-        return this.http.get<Pageable>(`${environment.apiUrl}/listUsers?pageNum=0`,{headers:this.header})
-        
+        return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
 
-    getById(id: bigint) {
-        return this.http.get<userDTO>(`${environment.apiUrl}/getById/${id}`,{headers:this.header});
+    getById(id: string) {
+        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
 
     update(id, params) {
-        return this.http.put<User>(`${environment.apiUrl}/update/${id}`, params,{headers:this.header})
-            .pipe(map(x => { 
-                 var updated :User = x;
-                 return updated;
+        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+            .pipe(map(x => {
+                // update stored user if the logged in user updated their own record
+                if (id == this.userValue.id) {
+                    // update local storage
+                    const user = { ...this.userValue, ...params };
+                    localStorage.setItem('user', JSON.stringify(user));
+
+                    // publish updated user to subscribers
+                    this.userSubject.next(user);
+                }
+                return x;
             }));
     }
 
-    delete(id: bigint) {
-        return this.http.delete(`${environment.apiUrl}/remove/${id}`,{headers:this.header})
+    delete(id: string) {
+        return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.Id) {
+                if (id == this.userValue.id) {
                     this.logout();
                 }
                 return x;
