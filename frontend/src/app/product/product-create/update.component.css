@@ -1,0 +1,11 @@
+form{
+  display: flex;
+  flex-direction: column;
+  }
+  .botao{
+
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }

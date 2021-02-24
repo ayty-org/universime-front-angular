@@ -1,0 +1,6 @@
+.add i{
+  background-color:brown;
+  display: flex;
+  flex-direction: column;
+
+}

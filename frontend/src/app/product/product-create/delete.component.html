@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>Excluir Projeto</mat-card-title>
+  <form>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Nome do projeto "
+      [value]="projeto.name" name="name" disabled>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Descrição"
+      [value]="projeto.descricao" name="descricao" disabled>
+    </mat-form-field>
+
+  </form>
+
+</mat-card>
+<div class="botao" >
+  <a (click)="deleteProduct()" class="btn btn-sm btn-success mb-1 ">Excluir</a>
+
+  <a (click)="cancel()" class="btn btn-sm btn-success mb-1">Cancelar</a>
+</div>
