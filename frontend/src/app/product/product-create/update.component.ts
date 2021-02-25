@@ -11,6 +11,9 @@ import { ProductService } from "./product.service";
 })
 
 export class updateComponent implements OnInit{
+
+  
+
   constructor(
     private router: Router,
      private productService: ProductService,
@@ -18,16 +21,17 @@ export class updateComponent implements OnInit{
       ){}
   projeto: Projetos
 
+   id = +this.route.snapshot.paramMap.get('id')
 
   ngOnInit(): void{
-    const id = +this.route.snapshot.paramMap.get('id')
-    this.productService.readById(id).subscribe(projeto => {
+    
+    this.productService.readById(this.id).subscribe(projeto => {
       this.projeto = projeto;
     })
   }
 
     updateProduct(): void{
-      this.productService.update(this.projeto).subscribe(() => {
+      this.productService.update(this.id,this.projeto).subscribe(() => {
         this.productService.showMessage('Projeto atualizado com sucesso')
         this.router.navigate(['/cadastrar']);
       })

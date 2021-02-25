@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {MatSnackBar } from'@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Projetos } from './product.model';
+import { environment } from '@environments/environment';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Projetos } from './product.model';
 })
 export class ProductService {
 
-  baseUrl = "http://localhost:3001/products"
+  
   constructor(
     private snackBar: MatSnackBar,
     private http: HttpClient,
@@ -26,22 +27,19 @@ export class ProductService {
     })
   }
   create(Projeto: Projetos): Observable<Projetos>{
-    return this.http.post<Projetos>(this.baseUrl, Projeto);
+    return this.http.post<Projetos>(`${environment.apiUrl}/projects`, Projeto);
   }
   read(): Observable<Projetos[]> {
-    return this.http.get<Projetos[]>(this.baseUrl);
+    return this.http.get<Projetos[]>(`${environment.apiUrl}/projects`);
   }
   readById(id: number): Observable<Projetos>{
-    const url = `${this.baseUrl}/${id}`;
-      return this.http.get<Projetos>(url);
+      return this.http.get<Projetos>(`${environment.apiUrl}/projects/${id}`);
   }
-  update(projeto: Projetos): Observable<Projetos>{
-    const url = `${this.baseUrl}/${projeto.id}`;
-    return this.http.put<Projetos>(url, projeto);
+  update(id: number, projeto: Projetos): Observable<Projetos>{
+    return this.http.put<Projetos>(`${environment.apiUrl}/projects/${id}`, projeto);
   }
   delete(id: number): Observable<Projetos>{
-    const url = `${this.baseUrl}/${id}`;
-    return this.http.delete<Projetos>(url);
+    return this.http.delete<Projetos>(`${environment.apiUrl}/projects/${id}`);
   }
 
   }

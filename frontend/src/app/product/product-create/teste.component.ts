@@ -22,8 +22,9 @@ projeto: Projetos = {
     ngOnInit(): void {
     }
     createProduct():void{
+      const msg = `Projeto ${this.projeto.name} criado!`
       this.productService.create(this.projeto).subscribe(()=> {
-        this.productService.showMessage('Projeto criado!')
+        this.productService.showMessage(msg)
         this.router.navigate(['/cadastrar'])
       })
 

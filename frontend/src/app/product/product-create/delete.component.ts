@@ -26,8 +26,9 @@ export class deleteComponent implements OnInit{
   }
 
   deleteProduct():void{
+    const msg = `Projeto ${this.projeto.name} excluido com sucesso!`
     this.productService.delete(this.projeto.id).subscribe(() =>{
-      this.productService.showMessage('Projeto excluido com sucesso!');
+      this.productService.showMessage(msg);
       this.router.navigate(['/cadastrar']);
     })
   }

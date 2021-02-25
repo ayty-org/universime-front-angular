@@ -16,7 +16,6 @@ export class ListComponent implements OnInit {
     displayedColumns = ['id','name','descricao','action']
 
     constructor(
-        private accountService: AccountService,
         private productService: ProductService,
         private router: Router) {}
 
@@ -24,7 +23,7 @@ export class ListComponent implements OnInit {
 
       this.productService.read().subscribe(projetos =>{
         this.projetos = projetos
-        console.log(projetos)
+      
       })
     }
 
