@@ -19,6 +19,7 @@ projeto: Projetos = {
   description: '',
   startDate: this.date,
   endDate: this.date,
+  logo: '',
   coordenators: []
 }
   constructor(

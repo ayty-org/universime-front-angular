@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing2.module';
-
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
+import { projetosComponent } from './projetos.component';
+
 import { TesteComponent } from './teste.component';
 import { updateComponent } from './update.component';
 import { deleteComponent } from './delete.component';
@@ -46,6 +49,9 @@ import { MatSortModule } from '@angular/material/sort';
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+
 
     ],
     declarations: [
@@ -54,6 +60,7 @@ import { MatSortModule } from '@angular/material/sort';
         TesteComponent,
         updateComponent,
         deleteComponent,
+        projetosComponent,
 
     ]
 })

@@ -12,17 +12,7 @@
       [value]="projeto.description" name="description" disabled>
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput [matDatepicker]="startPicker" placeholder="Data de inicio" [(ngModel)]="projeto.startDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput [matDatepicker]="endPicker" placeholder="Data de termino" [(ngModel)]="projeto.endDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker></mat-datepicker>
-    </mat-form-field>
+    
 
   </form>
 

@@ -1,29 +1,36 @@
 import { Component, OnInit } from "@angular/core";
 import { AccountService } from "@app/_services";
-import { Projetos } from "../product.model";
-import { ProductService } from "../product.service";
+import { Projetos } from "./product.model";
+import { ProductService } from "./product.service";
+import { Router } from '@angular/router';
+
+
 
 @Component({
   templateUrl: 'projetos.component.html',
+  selector: 'projetos.component',
   styleUrls: ['projetos.component.css']
 })
 
 export class projetosComponent implements OnInit{
 
   projetos : Projetos[]
-  displayedColumns = ['id','name','descricao']
+  displayedColumns = ['id','name','description','action']
 
   constructor(
-    private accountService: AccountService,
     private productService: ProductService,
-    ) {
+    private router: Router) {}
 
-  }
+  
   ngOnInit():void{
     this.productService.read().subscribe(projetos =>{
-      this.projetos = projetos
-      console.log(projetos)
+     
     })
 
+   
+
+  }
+  cancel():void{
+    this.router.navigate(['/'])
   }
 }

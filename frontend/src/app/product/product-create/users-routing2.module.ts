@@ -6,7 +6,7 @@ import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
 import { TesteComponent } from './teste.component';
 import { updateComponent } from './update.component';
-import { projetosComponent} from './projects/projetos.component'
+import { projetosComponent} from './projetos.component'
 
 
 const routes: Routes = [

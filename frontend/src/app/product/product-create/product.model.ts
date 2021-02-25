@@ -4,6 +4,7 @@ export interface Projetos {
   name: string
   description: string
   startDate: Date
+  logo: string
   endDate: Date
   coordenators :User[]
 }

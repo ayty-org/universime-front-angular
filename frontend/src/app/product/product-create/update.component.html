@@ -12,16 +12,21 @@
       <input matInput placeholder="Descrição"
       [(ngModel)]="projeto.description" name="description">
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Logo do projeto"
+      [(ngModel)]="projeto.logo" name="logo">
+    </mat-form-field>
     
     <mat-form-field>
-      <input matInput [matDatepicker]="startPicker" placeholder="Data de inicio" [(ngModel)]="projeto.startDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <input matInput name="startDate" [matDatepicker]="startPicker" placeholder="Data de inicio" [(ngModel)]="projeto.startDate">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
       <mat-datepicker #startPicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [matDatepicker]="endPicker" placeholder="Data de termino" [(ngModel)]="projeto.endDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <input matInput name="endDate" [matDatepicker]="endPicker" placeholder="Data de termino" [(ngModel)]="projeto.endDate">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
       <mat-datepicker #endPicker></mat-datepicker>
     </mat-form-field>
 <!--
