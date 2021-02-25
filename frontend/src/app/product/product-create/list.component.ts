@@ -13,7 +13,7 @@ import { Projetos } from './product.model';
 })
 export class ListComponent implements OnInit {
     projetos : Projetos[]
-    displayedColumns = ['id','name','descricao','action']
+    displayedColumns = ['id','name','description','action']
 
     constructor(
         private productService: ProductService,

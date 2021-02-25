@@ -27,6 +27,7 @@ export class ProductService {
     })
   }
   create(Projeto: Projetos): Observable<Projetos>{
+    console.log(Projeto.description);
     return this.http.post<Projetos>(`${environment.apiUrl}/projects`, Projeto);
   }
   read(): Observable<Projetos[]> {

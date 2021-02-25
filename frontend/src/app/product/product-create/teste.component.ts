@@ -12,7 +12,7 @@ export class TesteComponent {
 
 projeto: Projetos = {
   name: '',
-  descricao: ''
+  description: ''
 }
   constructor(
     private productService: ProductService,
