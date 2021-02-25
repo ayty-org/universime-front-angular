@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductService } from './product.service';
 import { Router } from '@angular/router';
 import { Projetos } from './product.model';
+import {FormControl} from '@angular/forms'
 
 @Component({
   templateUrl: 'teste.component.html',
@@ -10,9 +11,15 @@ import { Projetos } from './product.model';
  })
 export class TesteComponent {
 
+users = []
+date = new Date(new Date().getDate());
+
 projeto: Projetos = {
   name: '',
-  description: ''
+  description: '',
+  startDate: this.date,
+  endDate: this.date,
+  coordenators: []
 }
   constructor(
     private productService: ProductService,
